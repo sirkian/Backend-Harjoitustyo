@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Harjoitustyö</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	
+	<body>
+		<div>
+			<h1>imagestore</h1>
+			<div>
+				<h3>List of images</h3>
+				<Table>
+					<thead>
+						<tr>
+							<th>Img</th>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Download</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="image:${images}">
+							<td><a th:href="@{'/images/'+${image.imageId}}"> <img style="width: 100px" th:src="@{'/download/'+${image.imageId}}" /></a></td>
+							<td th:text="${image.imageId}" />
+							<td th:text="${image.fileName}" />
+							<td><a th:href="@{'/download/'+${image.imageId}}"> Download </a></td>
+						</tr>
+					</tbody>
+				</Table>
+			</div>
+		</div>
+	</body>
+</html>

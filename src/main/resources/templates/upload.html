@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>Harjoitustyö</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	
+	<body>
+		<div>
+			<h1>imagestore</h1>
+			<form id="upload" name="upload" th:action=@{/upload/upload} method="POST" encType="multipart/form-data">
+				<div>
+					<input type="file" name="image" id="image" required/>
+				</div>
+    			<input type=submit value="Submit"/>
+			</form>	
+			<a href="/images">Browse images</a>
+		</div>
+	</body>
+</html>
