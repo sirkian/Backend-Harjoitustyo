@@ -23,11 +23,11 @@ public class AppUser {
 	@Column(name = "user_id", nullable = false, updatable = false)
 	private Long userId;
 	
-	@Size(min = 1, max = 30)
+	@Size(min = 1, max = 30, message = "APPUSER MSG")
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 	
-	@Size(min = 1, max = 50)
+	@Size(min = 1, max = 50, message = "APPUSER MSG")
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 	
@@ -39,8 +39,8 @@ public class AppUser {
 	
 	
 	@JsonIgnore  
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appUser") private
-	List<Image> images;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appUser") 
+	private List<Image> images;
 	 
 	
 	public AppUser() {

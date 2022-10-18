@@ -8,7 +8,7 @@
 	
 	<body>
 		<div>
-	        <form th:object="${signupform}" th:action="@{saveuser}" action="#" method="POST">
+	        <form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="POST">
 	            <div>
 	            	<input type="text" th:field="*{email}" placeholder="Email"/>
 	            	<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>

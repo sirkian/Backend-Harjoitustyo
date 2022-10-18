@@ -5,11 +5,11 @@ import javax.validation.constraints.Size;
 
 public class SignupForm {
 
-	@NotEmpty
+	@NotEmpty(message = "SIGNUPFORM MSG")
 	@Size (max = 30)
 	private String username = "";
 	
-	@NotEmpty
+	@NotEmpty(message = "SIGNUPFORM MSG")
 	@Size (max = 50)
 	private String email = "";
 	

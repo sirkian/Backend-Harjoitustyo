@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import backend.harjoitustyo.domain.Category;
 import backend.harjoitustyo.domain.Image;
 import backend.harjoitustyo.domain.ImageRepository;
 

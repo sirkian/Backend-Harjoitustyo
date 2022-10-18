@@ -7,6 +7,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import backend.harjoitustyo.domain.Category;
+import backend.harjoitustyo.domain.AppUser;
+import backend.harjoitustyo.domain.AppUserRepository;
 import backend.harjoitustyo.domain.CategoryRepository;
 import backend.harjoitustyo.domain.Image;
 import backend.harjoitustyo.domain.ImageRepository;
@@ -34,6 +36,9 @@ public class ImageController {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private AppUserRepository userRepository;
 	
 	@GetMapping("/")
 	public String index(Model model) {
@@ -61,12 +66,23 @@ public class ImageController {
 	}
 	
 	@PostMapping("/upload/upload")
-	public String uploadImage(@Valid @ModelAttribute("image") Image image, @RequestParam("image") MultipartFile file, BindingResult bindingResult, Model model) {
+	public String uploadImage(@Valid @ModelAttribute("image") Image image, @RequestParam("image") MultipartFile file, BindingResult bindingResult, Model model, Authentication authentication) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("categories", categoryRepository.findAll());
 			System.out.println("Failure in validation @ ImageController/uploadImage");
 			return "upload";
 		}
+		
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+//		    String username = authentication.getName();
+//		    AppUser user = userRepository.findByUsername(username);
+//		    image.setAppUser(user);
+//		}
+		
+		AppUser user = userRepository.findByUsername(authentication.getName());
+		image.setAppUser(user);
+		
 		imgService.saveFile(image, file);
 		return "redirect:/";
 	}
