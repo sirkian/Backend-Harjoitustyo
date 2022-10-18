@@ -5,21 +5,21 @@ import javax.validation.constraints.Size;
 
 public class SignupForm {
 
-	@NotEmpty(message = "SIGNUPFORM MSG")
-	@Size (max = 30)
+	@NotEmpty(message = "Username can't be empty!")
+	@Size (max = 30, message = "Max length for username is 30 characters.")
 	private String username = "";
 	
-	@NotEmpty(message = "SIGNUPFORM MSG")
-	@Size (max = 50)
+	@NotEmpty(message = "Email can't be empty!")
+	@Size (max = 50, message = "Max length for email is 50 characters.")
 	private String email = "";
 	
 	@NotEmpty
 	private String role = "USER";
 	
-	@Size (min = 6, max = 50)
+	@Size (min = 6, max = 50, message = "Password should be at least 6 characters long.")
 	private String password = "";
 	
-	@Size (min = 6, max = 50)
+	@Size (min = 6, max = 50, message = "Password should be at least 6 characters long.")
 	private String passwordCheck = "";
 	
 	public String getUsername() {

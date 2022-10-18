@@ -7,6 +7,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,6 +59,7 @@ public class ImageController {
 		return "image";
 	}
 	
+	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
 	@GetMapping("/upload")
 	public String upload(Model model) {
 		model.addAttribute("image", new Image());
@@ -65,26 +67,22 @@ public class ImageController {
 		return "upload";
 	}
 	
+	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
 	@PostMapping("/upload/upload")
-	public String uploadImage(@Valid @ModelAttribute("image") Image image, @RequestParam("image") MultipartFile file, BindingResult bindingResult, Model model, Authentication authentication) {
+	public String uploadImage(
+			@Valid @ModelAttribute("image") Image image, 
+			@RequestParam("image") MultipartFile file, 
+			BindingResult bindingResult, Model model, 
+			Authentication authentication) {
+		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("categories", categoryRepository.findAll());
-			System.out.println("Failure in validation @ ImageController/uploadImage");
 			return "upload";
-		}
-		
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-//		    String username = authentication.getName();
-//		    AppUser user = userRepository.findByUsername(username);
-//		    image.setAppUser(user);
-//		}
-		
-		AppUser user = userRepository.findByUsername(authentication.getName());
-		image.setAppUser(user);
-		
-		imgService.saveFile(image, file);
-		return "redirect:/";
+		} 
+			AppUser user = userRepository.findByUsername(authentication.getName());
+			image.setAppUser(user);
+			imgService.saveFile(image, file);
+			return "redirect:/";		
 	}
 	
 	@GetMapping("/download/{imageId}")
@@ -95,4 +93,33 @@ public class ImageController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + image.getFileName() + "\"")
 				.body(new ByteArrayResource(image.getData()));		
 	}
+		
+	// KORJAA EDIT
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/edit/image/{imageId}")
+	public String editImage(@PathVariable("imageId") Long imageId, Model model) {
+		model.addAttribute("image", imgRepository.findById(imageId));
+		model.addAttribute("categories", categoryRepository.findAll());
+		return "edit-image";
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@PostMapping("/edit/image/save")
+	public String saveEditedImage(@Valid Image image, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("categories", categoryRepository.findAll());
+			return "edit-image";
+		}
+		imgRepository.save(image);
+		return "redirect:/";
+	}
+	
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@GetMapping("/delete/image/{imageId}")
+	public String deleteImage(@PathVariable("imageId") Long imageId) {
+		imgRepository.deleteById(imageId);
+		return "redirect:/";
+	}
+	
 }

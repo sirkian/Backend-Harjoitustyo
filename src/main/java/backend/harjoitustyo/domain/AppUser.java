@@ -40,7 +40,7 @@ public class AppUser {
 	
 	@JsonIgnore  
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appUser") 
-	private List<Image> images;
+	private List<Image> images; 
 	 
 	
 	public AppUser() {

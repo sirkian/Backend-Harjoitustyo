@@ -8,10 +8,11 @@
 	
 	<body>
 		<div>
-			<h1>imagestore</h1>
-			<form th:object=${image} th:action=@{/upload/upload} action="#" method="POST" encType="multipart/form-data">
+			<h1>imagestore_edit</h1>
+			<form th:object=${image} th:action=@{../image/save} action="#" method="POST">
 				<div>
-					<input type="file" name="image" id="image" accept="image/png, image/gif, image/jpeg" required/>
+					
+					<input type="hidden" id="imageId" th:field="*{imageId}"/>
 					
 					<label for="imageTitle">Title </label>
 					<input type=text id="imageTitle" th:field="*{imageTitle}"/>
@@ -26,7 +27,7 @@
        					<option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
     				</select>
 				</div>
-    			<input type=submit value="Submit"/>
+    			<input type=submit value="Save changes"/>
 			</form>	
 			<a href="/images">Browse images</a>
 		</div>

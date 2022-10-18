@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -24,20 +25,22 @@ public class Image {
 	@Column(name = "image_id", nullable = false, updatable = false)
 	private Long imageId;
 	
-	@Column(name = "file_name")
+	@Column(name = "file_name", nullable = false)
 	private String fileName;
 	
-	@Column(name = "file_type")
+	@Column(name = "file_type", nullable = false)
 	private String fileType;
 	
 	@Lob
+	@Column(nullable = false)
 	private byte[] data;
 	
-	@Size(min = 1, max = 50)
+	@NotEmpty(message = "Title can't be empty!")
+	@Size(max = 50, message = "Title can't be longer than 50 characters.")
 	@Column(name = "image_title")
 	private String imageTitle;
 	
-	@Size(max = 450)
+	@Size(max = 450, message = "Max length for description is 450 characters.")
 	@Column(name = "image_desc")
 	private String imageDesc;
 	

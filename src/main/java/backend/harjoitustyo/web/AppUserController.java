@@ -45,9 +45,15 @@ public class AppUserController {
 				user.setEmail(signupForm.getEmail());
 				user.setPasswordHash(passwordHash);
 				if (userRepository.findByUsername(signupForm.getUsername()) == null) {
-					userRepository.save(user);
+					if (userRepository.findByEmail(signupForm.getEmail()) == null) {
+						userRepository.save(user);
+					} else {
+						bindingResult.rejectValue("email", "err.email", "Account already exists with that email!");
+						return "signup";
+					}
 				} else {
 					bindingResult.rejectValue("username", "err.username", "Username already taken!");
+					return "signup";
 				}
 			} else {
 				bindingResult.rejectValue("passwordCheck", "err.passwordCheck", "Passwords doesn't match!");

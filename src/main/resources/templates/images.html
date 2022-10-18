@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 	<head>
 		<title>Harjoitustyö</title>
@@ -23,6 +23,8 @@
 							<th>Category</th>
 							<th>USER</th>
 							<th>Download</th>
+							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -34,8 +36,10 @@
 							<td th:text="${image.imageDesc}" />
 							<td th:text="${image.imageDate}" />
 							<td th:text="${image.category.categoryName}" />
-							<td th:text="${image.appUser}" />
+							<td th:text="${image.appUser.username}" />
 							<td><a th:href="@{'/download/'+${image.imageId}}"> Download </a></td>
+							<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/edit/image/'+${image.imageId}}"> EDIT </a></td>
+							<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/image/'+${image.imageId}}"> DELETE </a></td>
 						</tr>
 					</tbody>
 				</Table>
