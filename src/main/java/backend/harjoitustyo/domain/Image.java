@@ -1,5 +1,6 @@
 package backend.harjoitustyo.domain;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -42,13 +43,15 @@ public class Image {
 	private String imageDesc;
 	
 	@Column(name = "image_date")
-	private Date imageDate;
+	private LocalDateTime imageDate;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id") private AppUser appUser;
+	@JoinColumn(name = "user_id") 
+	private AppUser appUser;
 	  
 	@ManyToOne(fetch = FetchType.EAGER)  
-	@JoinColumn(name = "category_id") private Category category;
+	@JoinColumn(name = "category_id") 
+	private Category category;
 	 
 	
 	public Image() {
@@ -61,11 +64,21 @@ public class Image {
 		this.fileType = fileType;
 		this.data = data;
 	}
+	
+	public Image(String fileName, String fileType, byte[] data, String imageTitle, String imageDesc, LocalDateTime imageDate) {
+		super();
+		this.fileName = fileName;
+		this.fileType = fileType;
+		this.data = data;
+		this.imageTitle = imageTitle; 
+		this.imageDesc = imageDesc;
+		this.imageDate = imageDate;
+	}
 
 	
 	public Image( 
 			String fileName, String fileType, byte[] data, String
-			imageTitle, String imageDesc, Date imageDate, 
+			imageTitle, String imageDesc, LocalDateTime imageDate, 
 			AppUser appUser, Category category) { 
 		super(); 
 		this.fileName = fileName; 
@@ -127,11 +140,11 @@ public class Image {
 		this.imageDesc = imageDesc;
 	}
 
-	public Date getImageDate() {
+	public LocalDateTime getImageDate() {
 		return imageDate;
 	}
 
-	public void setImageDate(Date imageDate) {
+	public void setImageDate(LocalDateTime imageDate) {
 		this.imageDate = imageDate;
 	}
 

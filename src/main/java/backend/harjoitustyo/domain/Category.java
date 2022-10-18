@@ -24,12 +24,10 @@ public class Category {
 	@Size(min = 1, max = 30)
 	@Column(name = "category_name")
 	private String categoryName;
-	
-	
+		
 	@JsonIgnore 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category") private
-	List<Image> images;
-	 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category") 
+	private List<Image> images;
 	
 	public Category() {
 		

@@ -8,11 +8,13 @@
 	
 	<body>
 		<div>
-			<h1>imagestore</h1>		
+			<h1><a th:href="@{'/'}"> imagestore </a></h1>
 			<div th:object=${image}>
 				<img style="width: 500px" th:src="@{'/download/'+${imageId}}" />
 				<p th:text="${imageId}"></p>
 				<p th:text="${fileName}"></p>
+				<p th:text="${imageTitle}"></p>
+				<p th:text="${imageDesc}"></p>
 				<a th:href="@{'/download/'+${imageId}}"> Download </a>
 			</div>
 		</div>

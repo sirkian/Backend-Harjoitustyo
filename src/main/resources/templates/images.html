@@ -8,7 +8,7 @@
 	
 	<body>
 		<div>
-			<h1>imagestore</h1>
+			<h1><a th:href="@{'/'}"> imagestore </a></h1>
 			<div>
 				<h3>List of images</h3>
 				<Table>
@@ -16,7 +16,12 @@
 						<tr>
 							<th>Img</th>
 							<th>Id</th>
-							<th>Name</th>
+							<th>Filename</th>
+							<th>ImgTitle</th>
+							<th>ImgDesc</th>
+							<th>Date</th>
+							<th>Category</th>
+							<th>USER</th>
 							<th>Download</th>
 						</tr>
 					</thead>
@@ -25,6 +30,11 @@
 							<td><a th:href="@{'/images/'+${image.imageId}}"> <img style="width: 100px" th:src="@{'/download/'+${image.imageId}}" /></a></td>
 							<td th:text="${image.imageId}" />
 							<td th:text="${image.fileName}" />
+							<td th:text="${image.imageTitle}" />
+							<td th:text="${image.imageDesc}" />
+							<td th:text="${image.imageDate}" />
+							<td th:text="${image.category}" />
+							<td th:text="${image.appUser}" />
 							<td><a th:href="@{'/download/'+${image.imageId}}"> Download </a></td>
 						</tr>
 					</tbody>

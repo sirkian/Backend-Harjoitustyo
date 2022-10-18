@@ -9,9 +9,20 @@
 	<body>
 		<div>
 			<h1>imagestore</h1>
-			<form id="upload" name="upload" th:action=@{/upload/upload} method="POST" encType="multipart/form-data">
+			<form th:object=${image} th:action=@{/upload/upload} action="#" method="POST" encType="multipart/form-data">
 				<div>
 					<input type="file" name="image" id="image" required/>
+					
+					<label for="imageTitle">Title </label>
+					<input type=text id="imageTitle" name="imageTitle"/>
+					
+					<label for="imageTitle">Description </label>
+					<input type=text id="imageDesc" name="imageDesc"/>
+					
+					<label for="categorylist">Category</label>
+			 		<select id="categorylist">
+       					<option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
+    				</select>
 				</div>
     			<input type=submit value="Submit"/>
 			</form>	

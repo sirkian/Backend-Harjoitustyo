@@ -29,7 +29,9 @@ public class HarjoitustyoApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		cRepo.save(new Category("Portrait"));
+		cRepo.save(new Category("Test 1"));
+		cRepo.save(new Category("Test 2"));
+		cRepo.save(new Category("Test 3"));
 		uRepo.save(new AppUser("admin", "admin@gmail.com", "ADMIN", "$2a$10$Xp67oEDHyODcnTzkIIp9z.SpmmpZg33mqZe/jvaSHMnpWtEQGov5e"));
 	}
 

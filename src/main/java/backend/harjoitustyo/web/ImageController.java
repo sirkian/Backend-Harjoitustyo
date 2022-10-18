@@ -1,5 +1,7 @@
 package backend.harjoitustyo.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -7,12 +9,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import backend.harjoitustyo.domain.Category;
+import backend.harjoitustyo.domain.CategoryRepository;
 import backend.harjoitustyo.domain.Image;
 import backend.harjoitustyo.domain.ImageRepository;
 import backend.harjoitustyo.service.ImageStorageService;
@@ -25,6 +30,9 @@ public class ImageController {
 	
 	@Autowired
 	private ImageRepository imgRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@GetMapping("/")
 	public String index(Model model) {
@@ -45,13 +53,19 @@ public class ImageController {
 	}
 	
 	@GetMapping("/upload")
-	public String upload() {
+	public String upload(Model model) {
+		//model.addAttribute("image", new Image()); ?????????????????????????????????????????
+		model.addAttribute("categories", categoryRepository.findAll());
 		return "upload";
 	}
 	
 	@PostMapping("/upload/upload")
-	public String uploadImage(@RequestParam("image") MultipartFile file) {
-		imgService.saveFile(file);
+	public String uploadImage(
+			Model model,
+			@RequestParam("image") MultipartFile file,
+			@RequestParam("imageTitle") String imageTitle,
+			@RequestParam("imageDesc") String imageDesc) {
+		imgService.saveFile(file, imageTitle, imageDesc);
 		return "redirect:/";
 	}
 	
