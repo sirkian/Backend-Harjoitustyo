@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,18 +55,19 @@ public class ImageController {
 	
 	@GetMapping("/upload")
 	public String upload(Model model) {
-		//model.addAttribute("image", new Image()); ?????????????????????????????????????????
+		model.addAttribute("image", new Image());
 		model.addAttribute("categories", categoryRepository.findAll());
 		return "upload";
 	}
 	
 	@PostMapping("/upload/upload")
-	public String uploadImage(
-			Model model,
-			@RequestParam("image") MultipartFile file,
-			@RequestParam("imageTitle") String imageTitle,
-			@RequestParam("imageDesc") String imageDesc) {
-		imgService.saveFile(file, imageTitle, imageDesc);
+	public String uploadImage(@Valid @ModelAttribute("image") Image image, @RequestParam("image") MultipartFile file, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("categories", categoryRepository.findAll());
+			System.out.println("Failure in validation @ ImageController/uploadImage");
+			return "upload";
+		}
+		imgService.saveFile(image, file);
 		return "redirect:/";
 	}
 	

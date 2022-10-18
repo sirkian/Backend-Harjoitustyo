@@ -33,7 +33,7 @@
 							<td th:text="${image.imageTitle}" />
 							<td th:text="${image.imageDesc}" />
 							<td th:text="${image.imageDate}" />
-							<td th:text="${image.category}" />
+							<td th:text="${image.category.categoryName}" />
 							<td th:text="${image.appUser}" />
 							<td><a th:href="@{'/download/'+${image.imageId}}"> Download </a></td>
 						</tr>

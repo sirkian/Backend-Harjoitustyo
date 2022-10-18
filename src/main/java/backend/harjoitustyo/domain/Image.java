@@ -2,8 +2,8 @@ package backend.harjoitustyo.domain;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -58,14 +58,18 @@ public class Image {
 		
 	}
 	
-	public Image(String fileName, String fileType, byte[] data) {
-		super();
-		this.fileName = fileName;
-		this.fileType = fileType;
-		this.data = data;
-	}
+//	public Image(String fileName, String fileType, byte[] data) {
+//		super();
+//		this.fileName = fileName;
+//		this.fileType = fileType;
+//		this.data = data;
+//	}
 	
-	public Image(String fileName, String fileType, byte[] data, String imageTitle, String imageDesc, LocalDateTime imageDate) {
+	public Image(
+			String fileName, String fileType, byte[] data, 
+			String imageTitle, String imageDesc, LocalDateTime imageDate, 
+			Category category) {
+		
 		super();
 		this.fileName = fileName;
 		this.fileType = fileType;
@@ -73,13 +77,15 @@ public class Image {
 		this.imageTitle = imageTitle; 
 		this.imageDesc = imageDesc;
 		this.imageDate = imageDate;
+		this.category = category;
 	}
 
 	
 	public Image( 
-			String fileName, String fileType, byte[] data, String
-			imageTitle, String imageDesc, LocalDateTime imageDate, 
+			String fileName, String fileType, byte[] data, 
+			String imageTitle, String imageDesc, LocalDateTime imageDate, 
 			AppUser appUser, Category category) { 
+		
 		super(); 
 		this.fileName = fileName; 
 		this.fileType = fileType;

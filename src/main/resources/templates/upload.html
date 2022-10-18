@@ -20,7 +20,7 @@
 					<input type=text id="imageDesc" name="imageDesc"/>
 					
 					<label for="categorylist">Category</label>
-			 		<select id="categorylist">
+			 		<select id="categorylist" th:field="*{category}" >
        					<option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
     				</select>
 				</div>

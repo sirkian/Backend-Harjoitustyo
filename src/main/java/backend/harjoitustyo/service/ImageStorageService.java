@@ -17,16 +17,18 @@ public class ImageStorageService {
 	@Autowired
 	private ImageRepository imgRepository;
 	
-	public Image saveFile(MultipartFile file, String imageTitle, String imageDesc) {
+	public Image saveFile(Image image, MultipartFile file) {
 		
-		String fileName = file.getOriginalFilename();	
 		LocalDateTime fileDate = LocalDateTime.now();
 	
 		try {
-			Image image = new Image(fileName, file.getContentType(), file.getBytes(), imageTitle, imageDesc, fileDate);
+			image.setFileName(file.getOriginalFilename());
+			image.setFileType(file.getContentType());
+			image.setData(file.getBytes());
+			image.setImageDate(fileDate);
 			return imgRepository.save(image);
 		} catch(Exception e) {
-			System.out.println("Failure in ImageStorageService/saveFile");
+			System.out.println("Failure @ ImageStorageService/saveFile");
 			e.printStackTrace();
 		}
 		
