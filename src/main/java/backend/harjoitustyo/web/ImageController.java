@@ -4,8 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -59,6 +57,16 @@ public class ImageController {
 		return "image";
 	}
 	
+	@GetMapping("/like/{imageId}")
+	public String likeImage(@PathVariable("imageId") Long imageId, Authentication authentication) {
+		AppUser user = userRepository.findByUsername(authentication.getName());
+		Image image = imgRepository.findImageByImageId(imageId);
+		user.getLikedImages().add(image);
+		image.getLikedUsers().add(user);
+		userRepository.save(user);
+		return "redirect:../images";
+	}
+	
 	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
 	@GetMapping("/upload")
 	public String upload(Model model) {
@@ -79,22 +87,18 @@ public class ImageController {
 			model.addAttribute("categories", categoryRepository.findAll());
 			return "upload";
 		} 
-			AppUser user = userRepository.findByUsername(authentication.getName());
-			image.setAppUser(user);
-			imgService.saveFile(image, file);
-			return "redirect:/";		
+		AppUser user = userRepository.findByUsername(authentication.getName());
+		image.setAppUser(user);
+		imgService.saveFile(image, file);
+		return "redirect:/";		
 	}
 	
 	@GetMapping("/download/{imageId}")
 	public ResponseEntity<ByteArrayResource> downloadImage(@PathVariable Long imageId) {
-		Image image = imgService.getImage(imageId).get();
-		return ResponseEntity.ok()
-				.contentType(MediaType.parseMediaType(image.getFileType()))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + image.getFileName() + "\"")
-				.body(new ByteArrayResource(image.getData()));		
+		return imgService.getImageData(imageId);	
 	}
 	
-	@PreAuthorize("hasAuthority('ADMIN')")
+	
 	@GetMapping("/edit/image/{imageId}")
 	public String editImage(@PathVariable("imageId") Long imageId, Model model) {
 		model.addAttribute("image", imgRepository.findById(imageId));

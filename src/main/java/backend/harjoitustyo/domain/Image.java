@@ -2,6 +2,8 @@ package backend.harjoitustyo.domain;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -54,6 +57,9 @@ public class Image {
 	@ManyToOne(fetch = FetchType.EAGER)  
 	@JoinColumn(name = "category_id") 
 	private Category category;
+	
+	@ManyToMany(mappedBy = "likedImages")
+	private Set<AppUser> likedUsers = new HashSet<AppUser>();
 	 
 	
 	public Image() {
@@ -172,7 +178,14 @@ public class Image {
 	public void setCategory(Category category) { 
 		this.category = category; 
 	}
-	 
+
+	public Set<AppUser> getLikedUsers() {
+		return likedUsers;
+	}
+
+	public void setLikedUsers(Set<AppUser> likedUsers) {
+		this.likedUsers = likedUsers;
+	}
 
 	@Override
 	public String toString() {

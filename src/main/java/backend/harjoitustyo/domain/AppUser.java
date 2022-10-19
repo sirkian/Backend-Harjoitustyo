@@ -1,6 +1,8 @@
 package backend.harjoitustyo.domain;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -37,10 +42,15 @@ public class AppUser {
 	@Column(name = "password_hash", nullable = false)
 	private String passwordHash;
 	
-	
 	@JsonIgnore  
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "appUser") 
 	private List<Image> images; 
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "image_likes", joinColumns = 
+	@JoinColumn(name = "user_id"), inverseJoinColumns = 
+	@JoinColumn(name = "image_id"))
+	Set<Image> likedImages = new HashSet <Image> ();
 	 
 	
 	public AppUser() {
@@ -102,7 +112,14 @@ public class AppUser {
 	public void setImages(List<Image> images) { 
 		this.images = images; 
 	}
-	 
+
+	public Set<Image> getLikedImages() {
+		return likedImages;
+	}
+
+	public void setLikedImages(Set<Image> likedImages) {
+		this.likedImages = likedImages;
+	}
 
 	@Override
 	public String toString() {

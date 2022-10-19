@@ -25,6 +25,7 @@
 							<th>Download</th>
 							<th></th>
 							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -38,8 +39,9 @@
 							<td th:text="${image.category.categoryName}" />
 							<td th:text="${image.appUser.username}" />
 							<td><a th:href="@{'/download/'+${image.imageId}}"> Download </a></td>
-							<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/edit/image/'+${image.imageId}}"> EDIT </a></td>
-							<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/image/'+${image.imageId}}"> DELETE </a></td>
+							<td><a th:href="@{'/like/'+${image.imageId}}"> LIKE </a></td>
+							<td><a th:href="@{'/edit/image/'+${image.imageId}}"> EDIT </a></td>
+							<td><a th:href="@{'/delete/image/'+${image.imageId}}"> DELETE </a></td>
 						</tr>
 					</tbody>
 				</Table>
