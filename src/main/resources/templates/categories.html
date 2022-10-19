@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+	<head>
+		<title>Harjoitustyö</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	
+	<body>
+		<div>
+			<h1><a th:href="@{'/'}"> imagestore </a></h1>
+			<div>
+				<h3>List of categories</h3>
+				<a href="/add/category"> NEW CATEGORY </a>
+				<Table>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="category:${categories}">
+							<td th:text="${category.categoryId}" />
+							<td th:text="${category.categoryName}" />
+							<td><a th:href="@{'/edit/category/'+${category.categoryId}}"> EDIT </a></td>
+							<td><a th:href="@{'/delete/category/'+${category.categoryId}}"> DELETE </a></td>
+						</tr>
+					</tbody>
+				</Table>
+			</div>
+		</div>
+	</body>
+</html>

@@ -21,8 +21,8 @@
 					<input type=text id="imageDesc" th:field="*{imageDesc}"/>
 					<span th:if="${#fields.hasErrors('imageDesc')}" th:errors="*{imageDesc}"></span>
 					
-					<label for="categorylist">Category</label>
-			 		<select id="categorylist" th:field="*{category}" >
+					<label for="categories">Category</label>
+			 		<select id="categories" th:field="*{category}" >
        					<option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
     				</select>
 				</div>

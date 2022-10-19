@@ -98,7 +98,7 @@ public class ImageController {
 		return imgService.getImageData(imageId);	
 	}
 	
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/edit/image/{imageId}")
 	public String editImage(@PathVariable("imageId") Long imageId, Model model) {
 		model.addAttribute("image", imgRepository.findById(imageId));
@@ -120,14 +120,14 @@ public class ImageController {
 		AppUser user = userRepository.findByUsername(authentication.getName());
 		image.setAppUser(user);
 		imgService.saveEditedFile(image);
-		return "redirect:/";
+		return "redirect:../../images";
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/delete/image/{imageId}")
 	public String deleteImage(@PathVariable("imageId") Long imageId) {
 		imgRepository.deleteById(imageId);
-		return "redirect:/";
+		return "redirect:../../images";
 	}
 	
 }
