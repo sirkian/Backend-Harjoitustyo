@@ -1,34 +1,43 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <title>Harjoitustyö</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
 
-	<head>
-		<title>Harjoitustyö</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	</head>
-	
-	<body>
-		<div>
-			<h1>imagestore</h1>
-			<div sec:authorize="isAuthenticated()">
-      			Authenticated as <span sec:authentication="name"></span><span sec:authentication="principal.authorities"></span>
-      			<form th:action="@{/logout}" method="POST">
-				<input type="submit" value="logout"/>
-			</form>
-      		</div>
-			<Table>
-				<thead>
-					<tr>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="image:${images}">
-						<td><a th:href="@{'/images/'+${image.imageId}}"> <img style="width: 100px" th:src="@{'/download/'+${image.imageId}}" /></a></td>
-					</tr>
-				</tbody>
-			</Table>	
-			<a href="/upload">UPLOAD</a>
-			<a href="/images"> images </a>
-		</div>
-	</body>
+  <body>
+    <div>
+      <h1>imagestore</h1>
+      <div sec:authorize="isAuthenticated()">
+        Authenticated as <span sec:authentication="name"></span
+        ><span sec:authentication="principal.authorities"></span>
+        <form th:action="@{/logout}" method="POST">
+          <input type="submit" value="logout" />
+        </form>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="image:${images}">
+            <td>
+              <a th:href="@{'/images/'+${image.imageId}}">
+                <img
+                  style="width: 100px"
+                  th:src="@{'/download/'+${image.imageId}}"
+              /></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="/upload">UPLOAD</a>
+      <a href="/images"> images </a>
+    </div>
+  </body>
 </html>

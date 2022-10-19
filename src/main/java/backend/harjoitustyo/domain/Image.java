@@ -60,12 +60,12 @@ public class Image {
 		
 	}
 	
-//	public Image(String fileName, String fileType, byte[] data) {
-//		super();
-//		this.fileName = fileName;
-//		this.fileType = fileType;
-//		this.data = data;
-//	}
+	public Image(String imageTitle, String imageDesc, Category category) {
+		super();
+		this.imageTitle = imageTitle; 
+		this.imageDesc = imageDesc;
+		this.category = category;
+	}
 	
 	public Image(
 			String fileName, String fileType, byte[] data, 

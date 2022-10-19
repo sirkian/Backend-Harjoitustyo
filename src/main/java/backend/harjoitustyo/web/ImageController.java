@@ -93,8 +93,6 @@ public class ImageController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\"" + image.getFileName() + "\"")
 				.body(new ByteArrayResource(image.getData()));		
 	}
-		
-	// KORJAA EDIT
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/edit/image/{imageId}")
@@ -106,12 +104,18 @@ public class ImageController {
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/edit/image/save")
-	public String saveEditedImage(@Valid Image image, BindingResult bindingResult, Model model) {
+	public String saveEditedImage(
+			@Valid Image image,
+			BindingResult bindingResult, Model model,
+			Authentication authentication) {
+		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("categories", categoryRepository.findAll());
 			return "edit-image";
 		}
-		imgRepository.save(image);
+		AppUser user = userRepository.findByUsername(authentication.getName());
+		image.setAppUser(user);
+		imgService.saveEditedFile(image);
 		return "redirect:/";
 	}
 	
