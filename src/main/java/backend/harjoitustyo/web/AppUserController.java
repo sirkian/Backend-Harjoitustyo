@@ -64,5 +64,4 @@ public class AppUserController {
 		}
 		return "redirect:login";
 	}
-
 }

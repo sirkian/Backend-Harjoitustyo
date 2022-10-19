@@ -3,14 +3,15 @@ package backend.harjoitustyo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CsrfFilter;
 
+import backend.harjoitustyo.service.CsrfLoggerFilter;
 import backend.harjoitustyo.service.UserDetailServiceImpl;
 
 @Configuration
@@ -23,9 +24,9 @@ public class WebSecurityConfig {
 	
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-		return http.authorizeRequests(auth -> {
+		 http.authorizeRequests(auth -> {
 			auth.antMatchers("/css/**", "/login", "/signup", "/saveuser", "/", "/images/**", "/image", "/download/**").permitAll();
-			auth.antMatchers("/h2-console", "/h2-console/**").permitAll();
+			auth.antMatchers("/h2-console", "/h2-console/**", "/rest", "/rest/**").permitAll();
 			auth.antMatchers("/upload", "/upload/upload").hasAnyAuthority("USER", "ADMIN");
 			auth.anyRequest().authenticated();
 		})
@@ -37,8 +38,10 @@ public class WebSecurityConfig {
 				.and()
 				.logout().permitAll()
 				.and()
-				.httpBasic(Customizer.withDefaults())
-				.build();
+				.httpBasic();
+		
+		 http.addFilterAfter(new CsrfLoggerFilter(), CsrfFilter.class);
+		 return http.build();
 	}
 	
 	@Autowired
