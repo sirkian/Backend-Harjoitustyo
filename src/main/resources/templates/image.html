@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 	<head>
 		<title>Harjoitustyö</title>
@@ -11,12 +11,12 @@
 			<h1><a th:href="@{'/'}"> imagestore </a></h1>		
 			<div th:object=${image}>
 				<img style="width: 500px" th:src="@{'/download/'+${imageId}}" />
-				<p th:text="${imageId}"></p>
-				<p th:text="${fileName}"></p>
-				<p th:text="${imageTitle}"></p>
-				<p th:text="${imageDesc}"></p>
+				<p>Title:&nbsp;<span th:text="${image.imageTitle}"></span></p>
+				<p>Description:&nbsp;<span th:text="${image.imageDesc}"></span></p>
+				<p>Author:&nbsp;<span th:text="${user.username}"></span></p>
 				<a th:href="@{'/download/'+${imageId}}"> Download </a>
-			</div>
+				<p>Likes: &nbsp;<span th:text="${likes}"></span>&nbsp;<a th:href="@{'/like/'+${image.imageId}}"> LIKE </a></p>
+			</div>							
 		</div>
 	</body>
 </html>

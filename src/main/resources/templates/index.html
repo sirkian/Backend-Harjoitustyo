@@ -6,18 +6,24 @@
   <head>
     <title>Harjoitustyö</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}" />
   </head>
 
   <body>
-    <div>
-      <h1>imagestore</h1>
-      <div sec:authorize="isAuthenticated()">
-        Authenticated as <span sec:authentication="name"></span
-        ><span sec:authentication="principal.authorities"></span>
-        <form th:action="@{/logout}" method="POST">
-          <input type="submit" value="logout" />
-        </form>
-      </div>
+    <div class="mainContainer">
+      <nav class="navbar">
+        <h1>imgstr</h1>
+        <div class="navLinkContainer">
+          <a class="navInteraction" href="/categories"> categories </a>
+          <a class="navInteraction upload" href="/upload">UPLOAD</a>
+          <div class="navAuth" sec:authorize="isAuthenticated()">
+            Hello,&nbsp; <span sec:authentication="name"></span> &nbsp;!
+            <form th:action="@{/logout}" method="POST">
+              <input class="navInteraction" type="submit" value="logout" />
+            </form>
+          </div>
+        </div>
+      </nav>
       <table>
         <thead>
           <tr>
@@ -36,10 +42,8 @@
           </tr>
         </tbody>
       </table>
-      <a href="/upload">UPLOAD</a>
       <a href="/images"> images </a>
       <a href="/users"> users </a>
-      <a href="/categories"> categories </a>
     </div>
   </body>
 </html>

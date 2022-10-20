@@ -53,7 +53,9 @@ public class ImageController {
 	
 	@GetMapping("/images/{imageId}")
 	public String getImage(@PathVariable("imageId") Long imageId, Model model) {
-		model.addAttribute("image", imgRepository.findById(imageId));
+		model.addAttribute("image", imgRepository.findImageByImageId(imageId));
+		model.addAttribute("likes", imgRepository.findLikeCount(imageId));
+		model.addAttribute("user", userRepository.findByImageId(imageId));
 		return "image";
 	}
 	
@@ -64,7 +66,7 @@ public class ImageController {
 		user.getLikedImages().add(image);
 		image.getLikedUsers().add(user);
 		userRepository.save(user);
-		return "redirect:../images";
+		return "redirect:../images/{imageId}";
 	}
 	
 	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")

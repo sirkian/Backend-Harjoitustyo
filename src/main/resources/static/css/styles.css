@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: lightgrey;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;  
+}
+
+.navbar {
+    font-size: 1.2em;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100vw;
+    height: 5.5em;
+    overflow: hidden;
+    padding: 0em 5em;
+}
+
+nav > h1 {
+    flex: 3;
+}
+
+.navLinkContainer {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navAuth {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navInteraction {
+    text-decoration: none;
+    text-transform: uppercase;
+    border: none;
+    background-color: transparent;
+    color: black;
+    padding: 0.7em;
+    border-radius: 3px;
+    margin-left: 1em;
+}
+
+.upload {
+    background-color: bisque;
+}
+
+.navInteraction:hover {
+    background-color: aquamarine;
+}
