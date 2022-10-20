@@ -35,6 +35,13 @@ public class AppUserController {
 		return "signup";
 	}
 	
+	@PreAuthorize("#username == authentication.principal.username")
+	@GetMapping("user/{username}")
+	public String getProfile(@PathVariable("username") String username, Model model) {
+	    model.addAttribute("user", userRepository.findByUsername(username));
+	    return "user";
+	}
+	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("users")
 	public String getUsers(Model model) {

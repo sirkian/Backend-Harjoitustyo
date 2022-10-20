@@ -16,4 +16,5 @@ public interface ImageRepository extends CrudRepository<Image, Long> {
 	       value = "SELECT COUNT(*) as likes FROM image_likes WHERE image_id = :imageId",
 	       nativeQuery = true)
 	Integer findLikeCount(@Param("imageId") Long imageId);
+
 }

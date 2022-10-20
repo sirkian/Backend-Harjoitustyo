@@ -26,6 +26,12 @@ public class CategoryController {
 		return "categories";
 	}
 	
+	@GetMapping("/categories/{categoryId}")
+	public String getCategory(@PathVariable("categoryId") Long categoryId, Model model) {
+	    model.addAttribute("category", categoryRepository.findCategoryByCategoryId(categoryId));
+	    return "category";
+	}
+	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/add/category")
 	public String addCategory(Model model) {

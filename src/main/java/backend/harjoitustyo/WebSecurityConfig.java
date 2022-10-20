@@ -25,9 +25,10 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		 http.authorizeRequests(auth -> {
-			auth.antMatchers("/css/**", "/login", "/signup", "/saveuser", "/", "/images/**", "/image", "/download/**").permitAll();
-			auth.antMatchers("/h2-console", "/h2-console/**", "/rest", "/rest/**").permitAll();
+			auth.antMatchers("/", "/login", "/signup", "/saveuser", "/images/**", "/image", "/download/**", "/categories").permitAll();
+			auth.antMatchers("/css/**", "/h2-console", "/h2-console/**", "/rest", "/rest/**").permitAll();
 			auth.antMatchers("/upload", "/upload/upload").hasAnyAuthority("USER", "ADMIN");
+			auth.antMatchers("/delete", "/delete/**").hasAuthority("ADMIN");
 			auth.anyRequest().authenticated();
 		})
 				.headers().frameOptions().disable()
@@ -36,7 +37,7 @@ public class WebSecurityConfig {
 				.and()
 				.formLogin().loginPage("/login").defaultSuccessUrl("/", true)
 				.and()
-				.logout().permitAll()
+				.logout().permitAll().logoutSuccessUrl("/")
 				.and()
 				.httpBasic();
 		

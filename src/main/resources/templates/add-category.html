@@ -4,10 +4,31 @@
 	<head>
 		<title>Harjoitustyö</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}" />
 	</head>
 	
 	<body>
 		<div>
+		<nav class="navbar">
+        <h1><a th:href="@{'/'}"> imgstr </a></h1>
+        <div class="navLinkContainer">
+          <a class="navInteraction" href="/categories"> categories </a>
+          <a class="navInteraction upload" href="/upload">upload</a>
+          <div class="navAuth" sec:authorize="isAuthenticated()">
+            Hello,&nbsp; 
+            <a th:href="@{|user/${#authentication.name}|}">
+            <span sec:authentication="name"></span></a> 
+            &nbsp;!
+            <form th:action="@{/logout}" method="POST">
+              <input class="navInteraction" type="submit" value="logout" />
+            </form>
+          </div>
+          <div class="navAuth" sec:authorize="isAnonymous()">
+            <a class="navInteraction" href="/login"> login </a>
+            <a class="navInteraction" href="/signup"> sign up </a>
+          </div>
+        </div>
+      </nav>
 			<form th:object=${category} th:action=@{category/save} action="#" method="POST">
 				<div>			
 					<label for="username">Name </label>
