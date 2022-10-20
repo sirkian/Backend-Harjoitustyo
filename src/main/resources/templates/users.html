@@ -1,37 +1,86 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <title>Harjoitustyö</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      href="../static/css/styles.css"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
 
-	<head>
-		<title>Harjoitustyö</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	</head>
-	
-	<body>
-		<div>
-			<h1><a th:href="@{'/'}"> imagestore </a></h1>
-			<div>
-				<h3>List of users</h3>
-				<Table>
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Username</th>
-							<th>Email</th>
-							<th>Role</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="user:${users}">
-							<td th:text="${user.userId}" />
-							<td th:text="${user.username}" />
-							<td th:text="${user.email}" />
-							<td th:text="${user.role}" />
-							<td><a th:href="@{'/edit/user/'+${user.userId}}"> EDIT </a></td>
-							<td><a th:href="@{'/delete/user/'+${user.userId}}"> DELETE </a></td>
-						</tr>
-					</tbody>
-				</Table>
-			</div>
-		</div>
-	</body>
+  <body>
+    <div class="mainContainer">
+      <nav class="navbar">
+        <h1 class="logo">
+          <a th:href="@{'/'}"> img<span class="lighter">str</span> </a>
+        </h1>
+        <div class="navLinkContainer">
+          <a class="navInteraction" href="/categories"> categories </a>
+          <a class="navInteraction upload" href="/upload">upload</a>
+          <div class="navAuth" sec:authorize="isAuthenticated()">
+            Hello,&nbsp;
+            <a th:href="@{|user/${#authentication.name}|}">
+              <span sec:authentication="name"></span
+            ></a>
+            &nbsp;!
+            <form th:action="@{/logout}" method="POST">
+              <input class="navInteraction" type="submit" value="logout" />
+            </form>
+          </div>
+          <div class="navAuth" sec:authorize="isAnonymous()">
+            <a class="navInteraction" href="/login"> login </a>
+            <a class="navInteraction" href="/signup"> sign up </a>
+          </div>
+        </div>
+      </nav>
+
+      <h1><a th:href="@{'/'}"> imagestore </a></h1>
+      <div>
+        <h3>List of users</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="user:${users}">
+              <td th:text="${user.userId}" />
+              <td th:text="${user.username}" />
+              <td th:text="${user.email}" />
+              <td th:text="${user.role}" />
+              <td><a th:href="@{'/edit/user/'+${user.userId}}"> EDIT </a></td>
+              <td>
+                <a th:href="@{'/delete/user/'+${user.userId}}"> DELETE </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer>
+        <div class="footContainer">
+          <div>
+            <p>&#x2615; Anssi Sirkiä 2022</p>
+            <p>Palvelinohjelmointi - SWD4TA020-3010</p>
+          </div>
+          <a href="https://github.com/sirkian/Backend-Harjoitustyo"
+            ><img
+              style="width: 25px"
+              src="../static/icons/mark-github.svg"
+              th:src="@{icons/mark-github.svg}"
+              alt="GitHub icon"
+          /></a>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

@@ -4,10 +4,39 @@
 	<head>
 		<title>Harjoitustyö</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link
+      rel="stylesheet"
+      href="../static/css/styles.css"
+      th:href="@{/css/styles.css}"
+    />
 	</head>
 	
 	<body>
-		<div>
+		<div class="mainContainer">
+			<nav class="navbar">
+				<h1 class="logo">
+				  <a th:href="@{'/'}"> img<span class="lighter">str</span> </a>
+				</h1>
+				<div class="navLinkContainer">
+				  <a class="navInteraction" href="/categories"> categories </a>
+				  <a class="navInteraction upload" href="/upload">upload</a>
+				  <div class="navAuth" sec:authorize="isAuthenticated()">
+					Hello,&nbsp;
+					<a th:href="@{|user/${#authentication.name}|}">
+					  <span sec:authentication="name"></span
+					></a>
+					&nbsp;!
+					<form th:action="@{/logout}" method="POST">
+					  <input class="navInteraction" type="submit" value="logout" />
+					</form>
+				  </div>
+				  <div class="navAuth" sec:authorize="isAnonymous()">
+					<a class="navInteraction" href="/login"> login </a>
+					<a class="navInteraction" href="/signup"> sign up </a>
+				  </div>
+				</div>
+			</nav>
+
 			<h1>imagestore_edit</h1>
 			<form th:object=${image} th:action=@{../image/save} action="#" method="POST">
 				<div>
@@ -30,6 +59,22 @@
     			<input type=submit value="Save changes"/>
 			</form>	
 			<a href="/images">Browse images</a>
+
+      <footer>
+        <div class="footContainer">
+          <div>
+            <p>&#x2615; Anssi Sirkiä 2022</p>
+            <p>Palvelinohjelmointi - SWD4TA020-3010</p>
+          </div>
+          <a href="https://github.com/sirkian/Backend-Harjoitustyo"
+            ><img
+              style="width: 25px"
+              src="../static/icons/mark-github.svg"
+              th:src="@{icons/mark-github.svg}"
+              alt="GitHub icon"
+          /></a>
+        </div>
+      </footer>
 		</div>
 	</body>
 </html>

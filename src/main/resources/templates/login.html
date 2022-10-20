@@ -4,23 +4,29 @@
 	<head>
 		<title>Harjoitustyö</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link
+      		rel="stylesheet"
+      		href="../static/css/styles.css"
+      		th:href="@{/css/styles.css}"
+    	/>
 	</head>
 	
 	<body>
-			<div>
-	        	<form th:action="@{/login}" method="post">
-	            	<div> 
-	            		<input type="text" name="username" placeholder="Username"/> 
-	            	</div>
-	            	<div> 
-	            		<input type="password" name="password" placeholder="Password"/>
-	            	</div>
-	            	<span th:if="${param.error}"> Invalid username and password. </span>
-	            	<div>
-	            		<input type="submit" value="Sign In"/>
-	            	</div>
-	            	<p><a th:href="@{/signup}">Sign up.</a></p>
-	        	</form>
-        	</div>
+		<div class="signupContainer">
+		<h1>Log in to imgstr!</h1>
+	        <form class="signupForm" th:action="@{/login}" method="post">
+	            <div> 
+	            	<input type="text" name="username" placeholder="Username"/> 
+	            </div>
+	            <div> 
+	            	<input type="password" name="password" placeholder="Password"/>
+	            </div>
+	            <span th:if="${param.error}"> Invalid username and password. </span>
+	            <div>
+	            	<input class="signupSubmit" type="submit" value="Sign In"/>
+	            </div>
+	            <p class="signup-p"><a th:href="@{/signup}">No account yet? Sign up.</a></p>
+	        </form>
+        </div>
 	</body>
 </html>

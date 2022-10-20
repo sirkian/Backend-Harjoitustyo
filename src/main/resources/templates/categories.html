@@ -1,23 +1,32 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <title>Harjoitustyö</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      href="../static/css/styles.css"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
 
-	<head>
-		<title>Harjoitustyö</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}" />
-	</head>
-	
-	<body>
-		<div>
-		<nav class="navbar">
-        <h1><a th:href="@{'/'}"> imgstr </a></h1>
+  <body>
+    <div class="mainContainer">
+      <nav class="navbar">
+        <h1 class="logo">
+          <a th:href="@{'/'}"> img<span class="lighter">str</span> </a>
+        </h1>
         <div class="navLinkContainer">
           <a class="navInteraction" href="/categories"> categories </a>
           <a class="navInteraction upload" href="/upload">upload</a>
           <div class="navAuth" sec:authorize="isAuthenticated()">
-            Hello,&nbsp; 
+            Hello,&nbsp;
             <a th:href="@{|user/${#authentication.name}|}">
-            <span sec:authentication="name"></span></a> 
+              <span sec:authentication="name"></span
+            ></a>
             &nbsp;!
             <form th:action="@{/logout}" method="POST">
               <input class="navInteraction" type="submit" value="logout" />
@@ -29,21 +38,60 @@
           </div>
         </div>
       </nav>
-				<a sec:authorize="hasAuthority('ADMIN')" href="/add/category"> NEW CATEGORY </a>
-				<Table>
-					<thead>
-						<tr>
-							<th>Name</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="category:${categories}">
-							<td><a th:text="${category.categoryName}" th:href="@{'/categories/'+${category.categoryId}}"></a> <td/>
-							<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/edit/category/'+${category.categoryId}}"> EDIT </a></td>
-							<td><a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/category/'+${category.categoryId}}"> DELETE </a></td>
-						</tr>
-					</tbody>
-				</Table>
-		</div>
-	</body>
+
+      <a sec:authorize="hasAuthority('ADMIN')" href="/add/category">
+        NEW CATEGORY
+      </a>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="category:${categories}">
+            <td>
+              <a
+                th:text="${category.categoryName}"
+                th:href="@{'/categories/'+${category.categoryId}}"
+              ></a>
+            </td>
+            <td />
+            <td>
+              <a
+                sec:authorize="hasAuthority('ADMIN')"
+                th:href="@{'/edit/category/'+${category.categoryId}}"
+              >
+                EDIT
+              </a>
+            </td>
+            <td>
+              <a
+                sec:authorize="hasAuthority('ADMIN')"
+                th:href="@{'/delete/category/'+${category.categoryId}}"
+              >
+                DELETE
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <footer>
+        <div class="footContainer">
+          <div>
+            <p>&#x2615; Anssi Sirkiä 2022</p>
+            <p>Palvelinohjelmointi - SWD4TA020-3010</p>
+          </div>
+          <a href="https://github.com/sirkian/Backend-Harjoitustyo"
+            ><img
+              style="width: 25px"
+              src="../static/icons/mark-github.svg"
+              th:src="@{icons/mark-github.svg}"
+              alt="GitHub icon"
+          /></a>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

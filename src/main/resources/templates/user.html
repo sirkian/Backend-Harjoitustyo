@@ -6,56 +6,68 @@
   <head>
     <title>Harjoitustyö</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}" />
+    <link
+      rel="stylesheet"
+      href="../static/css/styles.css"
+      th:href="@{/css/styles.css}"
+    />
   </head>
 
   <body>
     <div class="mainContainer">
       <nav class="navbar">
-        <h1><a th:href="@{'/'}"> imgstr </a></h1>
+        <h1 class="logo">
+          <a th:href="@{'/'}"> img<span class="lighter">str</span> </a>
+        </h1>
         <div class="navLinkContainer">
           <a class="navInteraction" href="/categories"> categories </a>
           <a class="navInteraction upload" href="/upload">upload</a>
           <div class="navAuth" sec:authorize="isAuthenticated()">
-            Hello,&nbsp; 
-            <span sec:authentication="name"></span> &nbsp;!
+            Hello,&nbsp;
+            <span sec:authentication="name"></span>
+            &nbsp;!
             <form th:action="@{/logout}" method="POST">
               <input class="navInteraction" type="submit" value="logout" />
             </form>
           </div>
           <div class="navAuth" sec:authorize="isAnonymous()">
             <a class="navInteraction" href="/login"> login </a>
+            <a class="navInteraction" href="/signup"> sign up </a>
           </div>
         </div>
       </nav>
-      
-      <div th:object=${user}>
-      <p>Name:&nbsp;<span th:text="${user.username}"></span></p>
-      <table>
-		<thead>
-			<tr>
-			  <th>Liked images:</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			<tr th:each="image:${user.likedImages}">
-				<td><a th:href="@{'/images/'+${image.imageId}}"> <img style="width: 100px" th:src="@{'/download/'+${image.imageId}}" /></a></td>
-			</tr>
-		  </tbody>
-		</table>
-		<table>
-		<thead>
-			<tr>
-			  <th>Your images:</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			<tr th:each="image:${user.images}">
-				<td><a th:href="@{'/images/'+${image.imageId}}"> <img style="width: 100px" th:src="@{'/download/'+${image.imageId}}" /></a></td>
-			</tr>
-		  </tbody>
-		</table>
+
+	  <div class="contentContainer userContainer">
+        <div class="imagegrid user-liked" th:object="${user}">
+          <div th:each="image:${user.likedImages}">
+            <a th:href="@{'/images/'+${image.imageId}}">
+              <img th:src="@{'/download/'+${image.imageId}}"/></a>
+          </div>
+        </div>
+        <div class="imagegrid user-own" th:object="${user}">
+          <div th:each="image:${user.images}">
+            <a th:href="@{'/images/'+${image.imageId}}">
+              <img th:src="@{'/download/'+${image.imageId}}"/></a>
+          </div>
+        </div>
       </div>
+      </div>
+
+      <footer>
+        <div class="footContainer">
+          <div>
+            <p>&#x2615; Anssi Sirkiä 2022</p>
+            <p>Palvelinohjelmointi - SWD4TA020-3010</p>
+          </div>
+          <a href="https://github.com/sirkian/Backend-Harjoitustyo"
+            ><img
+              style="width: 25px"
+              src="../static/icons/mark-github.svg"
+              th:src="@{icons/mark-github.svg}"
+              alt="GitHub icon"
+          /></a>
+        </div>
+      </footer>
     </div>
   </body>
 </html>

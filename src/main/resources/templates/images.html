@@ -1,51 +1,109 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head>
+    <title>Harjoitustyö</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      rel="stylesheet"
+      href="../static/css/styles.css"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
 
-	<head>
-		<title>Harjoitustyö</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	</head>
-	
-	<body>
-		<div>
-			<h1><a th:href="@{'/'}"> imagestore </a></h1>
-			<div>
-				<h3>List of images</h3>
-				<Table>
-					<thead>
-						<tr>
-							<th>Img</th>
-							<th>Id</th>
-							<th>Filename</th>
-							<th>ImgTitle</th>
-							<th>ImgDesc</th>
-							<th>Date</th>
-							<th>Category</th>
-							<th>USER</th>
-							<th>Download</th>
-							<th></th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="image:${images}">
-							<td><a th:href="@{'/images/'+${image.imageId}}"> <img style="width: 100px" th:src="@{'/download/'+${image.imageId}}" /></a></td>
-							<td th:text="${image.imageId}" />
-							<td th:text="${image.fileName}" />
-							<td th:text="${image.imageTitle}" />
-							<td th:text="${image.imageDesc}" />
-							<td th:text="${image.imageDate}" />
-							<td th:text="${image.category.categoryName}" />
-							<td th:text="${image.appUser.username}" />
-							<td><a th:href="@{'/download/'+${image.imageId}}"> Download </a></td>
-							<td><a th:href="@{'/like/'+${image.imageId}}"> LIKE </a></td>
-							<td><a th:href="@{'/edit/image/'+${image.imageId}}"> EDIT </a></td>
-							<td><a th:href="@{'/delete/image/'+${image.imageId}}"> DELETE </a></td>
-						</tr>
-					</tbody>
-				</Table>
-			</div>
-		</div>
-	</body>
+  <body>
+    <div class="mainContainer">
+      <nav class="navbar">
+        <h1 class="logo">
+          <a th:href="@{'/'}"> img<span class="lighter">str</span> </a>
+        </h1>
+        <div class="navLinkContainer">
+          <a class="navInteraction" href="/categories"> categories </a>
+          <a class="navInteraction upload" href="/upload">upload</a>
+          <div class="navAuth" sec:authorize="isAuthenticated()">
+            Hello,&nbsp;
+            <a th:href="@{|user/${#authentication.name}|}">
+              <span sec:authentication="name"></span
+            ></a>
+            &nbsp;!
+            <form th:action="@{/logout}" method="POST">
+              <input class="navInteraction" type="submit" value="logout" />
+            </form>
+          </div>
+          <div class="navAuth" sec:authorize="isAnonymous()">
+            <a class="navInteraction" href="/login"> login </a>
+            <a class="navInteraction" href="/signup"> sign up </a>
+          </div>
+        </div>
+      </nav>
+
+      <h1><a th:href="@{'/'}"> imagestore </a></h1>
+      <div>
+        <h3>List of images</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Img</th>
+              <th>Id</th>
+              <th>Filename</th>
+              <th>ImgTitle</th>
+              <th>ImgDesc</th>
+              <th>Date</th>
+              <th>Category</th>
+              <th>USER</th>
+              <th>Download</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="image:${images}">
+              <td>
+                <a th:href="@{'/images/'+${image.imageId}}">
+                  <img
+                    style="width: 100px"
+                    th:src="@{'/download/'+${image.imageId}}"
+                /></a>
+              </td>
+              <td th:text="${image.imageId}" />
+              <td th:text="${image.fileName}" />
+              <td th:text="${image.imageTitle}" />
+              <td th:text="${image.imageDesc}" />
+              <td th:text="${image.imageDate}" />
+              <td th:text="${image.category.categoryName}" />
+              <td th:text="${image.appUser.username}" />
+              <td>
+                <a th:href="@{'/download/'+${image.imageId}}"> Download </a>
+              </td>
+              <td><a th:href="@{'/like/'+${image.imageId}}"> LIKE </a></td>
+              <td>
+                <a th:href="@{'/edit/image/'+${image.imageId}}"> EDIT </a>
+              </td>
+              <td>
+                <a th:href="@{'/delete/image/'+${image.imageId}}"> DELETE </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <footer>
+        <div class="footContainer">
+          <div>
+            <p>&#x2615; Anssi Sirkiä 2022</p>
+            <p>Palvelinohjelmointi - SWD4TA020-3010</p>
+          </div>
+          <a href="https://github.com/sirkian/Backend-Harjoitustyo"
+            ><img
+              style="width: 25px"
+              src="../static/icons/mark-github.svg"
+              th:src="@{icons/mark-github.svg}"
+              alt="GitHub icon"
+          /></a>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

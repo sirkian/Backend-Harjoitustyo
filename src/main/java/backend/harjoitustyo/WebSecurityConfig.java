@@ -26,7 +26,7 @@ public class WebSecurityConfig {
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		 http.authorizeRequests(auth -> {
 			auth.antMatchers("/", "/login", "/signup", "/saveuser", "/images/**", "/image", "/download/**", "/categories").permitAll();
-			auth.antMatchers("/css/**", "/h2-console", "/h2-console/**", "/rest", "/rest/**").permitAll();
+			auth.antMatchers("/css/**", "/icons/**", "/h2-console", "/h2-console/**", "/rest", "/rest/**").permitAll();
 			auth.antMatchers("/upload", "/upload/upload").hasAnyAuthority("USER", "ADMIN");
 			auth.antMatchers("/delete", "/delete/**").hasAuthority("ADMIN");
 			auth.anyRequest().authenticated();
