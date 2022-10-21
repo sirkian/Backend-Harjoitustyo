@@ -35,7 +35,6 @@ public class Image {
 	private String fileType;
 	
 	@Lob
-	@Column(nullable = false)
 	private byte[] data;
 	
 	@NotEmpty(message = "Title can't be empty!")
@@ -66,29 +65,17 @@ public class Image {
 		
 	}
 	
-	public Image(String imageTitle, String imageDesc, Category category) {
+	// CONSTRUCTOR FOR JUNIT TESTS
+	public Image(String fileName, String fileType, String imageTitle, String imageDesc, AppUser appUser, Category category) {
 		super();
+		this.fileName = fileName; 
+        this.fileType = fileType;
 		this.imageTitle = imageTitle; 
 		this.imageDesc = imageDesc;
-		this.category = category;
-	}
-	
-	public Image(
-			String fileName, String fileType, byte[] data, 
-			String imageTitle, String imageDesc, LocalDateTime imageDate, 
-			Category category) {
-		
-		super();
-		this.fileName = fileName;
-		this.fileType = fileType;
-		this.data = data;
-		this.imageTitle = imageTitle; 
-		this.imageDesc = imageDesc;
-		this.imageDate = imageDate;
+		this.appUser = appUser; 
 		this.category = category;
 	}
 
-	
 	public Image( 
 			String fileName, String fileType, byte[] data, 
 			String imageTitle, String imageDesc, LocalDateTime imageDate, 

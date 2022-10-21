@@ -44,10 +44,15 @@
           <div th:each="image:${images}">
             <div>
               <a th:href="@{'/images/'+${image.imageId}}">
-                <img
+              
+                <img th:if="${image.data == null}"
+                  th:src="@{icons/defaultImage.png}"
+                  />
+                  
+                <img th:unless="${image.data == null}"
                   th:src="@{'/download/'+${image.imageId}}"
-                  th:alt="${image.imageDesc}"
-              /></a>
+                  th:alt="${image.imageDesc}"/>
+			  </a>
             </div>
           </div>
         </div>
