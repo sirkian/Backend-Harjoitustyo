@@ -38,12 +38,14 @@
       </nav>
 
 	  <div class="contentContainer userContainer">
+	  	<h3>Your liked images</h3>
         <div class="imagegrid user-liked" th:object="${user}">
           <div th:each="image:${user.likedImages}">
             <a th:href="@{'/images/'+${image.imageId}}">
               <img th:src="@{'/download/'+${image.imageId}}"/></a>
           </div>
         </div>
+        <h3>Your uploaded images</h3>
         <div class="imagegrid user-own" th:object="${user}">
           <div th:each="image:${user.images}">
             <a th:href="@{'/images/'+${image.imageId}}">

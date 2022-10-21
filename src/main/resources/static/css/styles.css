@@ -117,6 +117,27 @@ input {
     margin: 6em 0;
 }
 
+.userContainer {
+	flex-direction: column;
+}
+
+.categories {
+	display: flex;
+	justify-content: center;
+	font-size: 1.5em;
+	background-color: #323333;
+	padding: 5em;
+	border-radius: 5px;	
+}
+
+.categories a {
+	color: #FFF;
+}
+
+.categories a:hover {
+	color: aquamarine;
+}
+
 .contentForm {
 	display: flex;
 	flex-direction: column;
@@ -193,12 +214,29 @@ input {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
+.user-liked,
+.user-own {
+	background-color: lightgrey;
+	padding: 1em;
+	border-radius: 3px;
+	min-height: 6em;
+	margin-bottom: 2em;
+}
+
+.categorylist {
+	text-align: center;
+	width: 600px;
+}
+
 img {
-    background-color: #ebeff5;
     aspect-ratio: 16/9;
     object-fit: cover;
     width: 100%;
     border-radius: 3px;
+}
+
+img:hover {
+	opacity: 0.85;
 }
 
 footer {
@@ -264,6 +302,10 @@ footer {
 
 .signupContainer a:hover {
 	color: aquamarine;
+}
+
+.signupError {
+	color: #FFF;
 }
 
 

@@ -17,20 +17,20 @@
 	        <form class="signupForm" th:object="${signupform}" th:action="@{/saveuser}" action="#" method="POST">
 	            <div>
 	            	<input type="text" th:field="*{email}" placeholder="Email"/>
-	            	<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-	            </div>
+	           	</div>
+	            	<span class="signupError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 	            <div>
-	            	<input type="text" th:field="*{username}" placeholder="Username"/>
-	            	<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+	            	<input type="text" th:field="*{username}" placeholder="Username"/>	            	
 	            </div>
+	            	<span class="signupError" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 	            <div>
 	            	<input type="password" th:field="*{password}" placeholder="Password"/>
-	            	<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 	            </div>
+	            <span class="signupError" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 	            <div>
-	            	<input type="password" th:field="*{passwordCheck}" placeholder="Confirm password"/>
-	            	<span th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}"></span>
+	            	<input type="password" th:field="*{passwordCheck}" placeholder="Confirm password"/>	            	
 	            </div>
+	            <span class="signupError" th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}"></span>
 	            <div><input class="signupSubmit" type="submit" value="Sign Up"/></div>
 	            <p class="signup-p"><a th:href="@{/login}">Already registered? Login</a></p>
 	        </form>

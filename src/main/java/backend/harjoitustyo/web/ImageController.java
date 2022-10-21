@@ -45,6 +45,7 @@ public class ImageController {
 		return "index";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/images")
 	public String getAll(Model model) {
 		model.addAttribute("images", imgRepository.findAll());
@@ -80,9 +81,10 @@ public class ImageController {
 	@PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
 	@PostMapping("/upload/upload")
 	public String uploadImage(
-			@Valid @ModelAttribute("image") Image image, 
+			@Valid @ModelAttribute("image") Image image,
+			BindingResult bindingResult, 
 			@RequestParam("image") MultipartFile file, 
-			BindingResult bindingResult, Model model, 
+			Model model, 
 			Authentication authentication) {
 		
 		if (bindingResult.hasErrors()) {
@@ -92,7 +94,7 @@ public class ImageController {
 		AppUser user = userRepository.findByUsername(authentication.getName());
 		image.setAppUser(user);
 		imgService.saveFile(image, file);
-		return "redirect:/";		
+		return "redirect:/";
 	}
 	
 	@GetMapping("/download/{imageId}")

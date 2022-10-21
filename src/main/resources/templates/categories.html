@@ -39,16 +39,20 @@
         </div>
       </nav>
 
-      <a sec:authorize="hasAuthority('ADMIN')" href="/add/category">
-        NEW CATEGORY
-      </a>
+	<div class="contentContainer">
+	  <div class="categories">
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
+        <tr>
+        <td>            	 
+        <a sec:authorize="hasAuthority('ADMIN')" href="/add/category">NEW CATEGORY</a>
+        </td>
+        </tr>
           <tr th:each="category:${categories}">
             <td>
               <a
@@ -76,6 +80,8 @@
           </tr>
         </tbody>
       </table>
+      </div>
+      </div>
 
       <footer>
         <div class="footContainer">

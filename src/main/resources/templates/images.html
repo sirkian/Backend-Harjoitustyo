@@ -39,9 +39,7 @@
         </div>
       </nav>
 
-      <h1><a th:href="@{'/'}"> imagestore </a></h1>
-      <div>
-        <h3>List of images</h3>
+      <div class="contentContainer">
         <table>
           <thead>
             <tr>
@@ -80,10 +78,10 @@
               </td>
               <td><a th:href="@{'/like/'+${image.imageId}}"> LIKE </a></td>
               <td>
-                <a th:href="@{'/edit/image/'+${image.imageId}}"> EDIT </a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/edit/image/'+${image.imageId}}"> EDIT </a>
               </td>
               <td>
-                <a th:href="@{'/delete/image/'+${image.imageId}}"> DELETE </a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/image/'+${image.imageId}}"> DELETE </a>
               </td>
             </tr>
           </tbody>

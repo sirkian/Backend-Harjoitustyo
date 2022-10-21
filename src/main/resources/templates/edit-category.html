@@ -37,7 +37,8 @@
 				</div>
 			</nav>
 		
-			<form th:object=${category} th:action=@{../category/save} action="#" method="POST">
+			<div class="contentContainer">     
+			<form class="contentForm" th:object=${category} th:action=@{../category/save} action="#" method="POST">
 				<div>			
 					<input type="hidden" id="categoryId" th:field="*{categoryId}"/>
 					
@@ -47,6 +48,7 @@
 				</div>
     			<input type=submit value="Save changes"/>
 			</form>
+			</div>
 
 			<footer>
 				<div class="footContainer">

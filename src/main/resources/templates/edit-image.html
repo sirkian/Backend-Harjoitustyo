@@ -37,9 +37,8 @@
 				</div>
 			</nav>
 
-			<h1>imagestore_edit</h1>
-			<form th:object=${image} th:action=@{../image/save} action="#" method="POST">
-				<div>
+			<div class="contentContainer">
+			<form class="contentForm" th:object=${image} th:action=@{../image/save} action="#" method="POST">
 					
 					<input type="hidden" id="imageId" th:field="*{imageId}"/>
 					
@@ -55,10 +54,9 @@
 			 		<select id="categories" th:field="*{category}" >
        					<option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.categoryName}"></option>
     				</select>
-				</div>
     			<input type=submit value="Save changes"/>
-			</form>	
-			<a href="/images">Browse images</a>
+			</form>
+			</div>
 
       <footer>
         <div class="footContainer">

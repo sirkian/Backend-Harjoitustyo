@@ -39,13 +39,12 @@
         </div>
       </nav>
 
-      <div th:object="${category}">
+      <div class="contentContainer" th:object="${category}">     
+        <div class="imagegrid categorylist" >
         <h1 th:text="${category.categoryName}"></h1>
-        <div th:each="image:${category.images}">
-          <div>
+          <div th:each="image:${category.images}">
             <a th:href="@{'/images/'+${image.imageId}}">
               <img
-                style="width: 100px"
                 th:src="@{'/download/'+${image.imageId}}"
             /></a>
           </div>

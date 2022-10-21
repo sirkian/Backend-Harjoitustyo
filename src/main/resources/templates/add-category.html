@@ -32,8 +32,9 @@
           </div>
         </div>
       </nav>
-
-			<form th:object=${category} th:action=@{category/save} action="#" method="POST">
+      
+		<div class="contentContainer">
+			<form class="contentForm" th:object=${category} th:action=@{category/save} action="#" method="POST">
 				<div>			
 					<label for="username">Name </label>
 					<input type=text id="categoryName" th:field="*{categoryName}"/>
@@ -41,6 +42,7 @@
 				</div>
     			<input type=submit value="Save"/>
 			</form>
+		</div>
 
       <footer>
         <div class="footContainer">
@@ -50,7 +52,7 @@
           </div>
           <a href="https://github.com/sirkian/Backend-Harjoitustyo"
             ><img
-              style="width: 25px"
+              style="width: 25px; height: 25px"
               src="../static/icons/mark-github.svg"
               th:src="@{icons/mark-github.svg}"
               alt="GitHub icon"
