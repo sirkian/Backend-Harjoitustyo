@@ -35,6 +35,7 @@ public class Image {
 	private String fileType;
 	
 	@Lob
+	@Column(name = "file_data")
 	private byte[] data;
 	
 	@NotEmpty(message = "Title can't be empty!")
