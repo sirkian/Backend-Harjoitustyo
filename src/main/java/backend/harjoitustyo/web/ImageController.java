@@ -64,7 +64,7 @@ public class ImageController {
 	public String likeImage(@PathVariable("imageId") Long imageId, Authentication authentication) {
 		AppUser user = userRepository.findByUsername(authentication.getName());
 		Image image = imgRepository.findImageByImageId(imageId);
-		user.getLikedImages().add(image);
+		user.getLikedImages().add(image); 
 		image.getLikedUsers().add(user);
 		userRepository.save(user);
 		return "redirect:../images/{imageId}";

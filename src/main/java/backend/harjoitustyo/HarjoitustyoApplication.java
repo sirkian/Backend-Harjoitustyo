@@ -9,6 +9,7 @@ import backend.harjoitustyo.domain.AppUser;
 import backend.harjoitustyo.domain.AppUserRepository;
 import backend.harjoitustyo.domain.Category;
 import backend.harjoitustyo.domain.CategoryRepository;
+import backend.harjoitustyo.domain.Image;
 import backend.harjoitustyo.domain.ImageRepository;
 
 @SpringBootApplication

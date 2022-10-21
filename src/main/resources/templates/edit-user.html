@@ -37,8 +37,9 @@
         </div>
       </nav>
 
+		<div class="contentContainer">
 			<form th:object=${user} th:action=@{../user/save} action="#" method="POST">
-				<div>			
+							
 					<input type="hidden" id="userId" th:field="*{userId}"/>
 					
 					<label for="username">username </label>
@@ -51,9 +52,10 @@
 					
 					<input type="hidden" id="role" th:field="*{role}"/>
 					<input type="hidden" id="passwordHash" th:field="*{passwordHash}"/>
-				</div>
+				
     			<input type=submit value="Save changes"/>
 			</form>	
+			</div>
 
       <footer>
         <div class="footContainer">

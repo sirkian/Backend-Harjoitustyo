@@ -42,7 +42,17 @@
       <div class="contentContainer" th:object="${image}">
       	<div class="image">
       		<h3 th:text="${image.imageTitle}"></h3>
-	        <img style="width: 800px" th:src="@{'/download/'+${imageId}}" />
+	        <img th:if="${image.data == null}"
+	        	 style="width: 800px"
+                 th:src="@{../icons/defaultImage.png}"
+                 />
+                  
+            <img th:unless="${image.data == null}"
+            	 style="width: 800px"
+               	 th:src="@{'/download/'+${image.imageId}}"
+                 th:alt="${image.imageDesc}"
+                 />
+                 
 	        <div class="imageDesc">
 		      <div>
 			    <p>Uploaded by:&nbsp;<span th:text="${user.username}"></span></p>
@@ -64,9 +74,9 @@
           </div>
           <a href="https://github.com/sirkian/Backend-Harjoitustyo"
             ><img
-              style="width: 25px"
+              style="width: 25px; height: 25px;"
               src="../static/icons/mark-github.svg"
-              th:src="@{icons/mark-github.svg}"
+              th:src="@{../icons/mark-github.svg}"
               alt="GitHub icon"
           /></a>
         </div>
